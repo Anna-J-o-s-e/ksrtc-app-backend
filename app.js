@@ -5,6 +5,7 @@ const {ksrtcsmodel}=require("./models/ksrtc")
 const jwt=require("jsonwebtoken")
 
 const bcrypt=require("bcryptjs") //encryption
+const { busesmodel } = require("./models/bus")
 
 const app=express()
 app.use(cors())
@@ -73,6 +74,16 @@ app.post("/viewusers",(req,res)=>{
         }
     })
 })
+
+app.post("/add",(req,res)=>{
+    let input=req.body
+    let bus=new busesmodel(input)
+    bus.save()
+    console.log(bus)
+    res.json({"status":"success"})
+})
+
+
 
 app.listen(8080,()=>{
     console.log("server started")
